@@ -1,2 +1,2 @@
 # user-service
-Challenge made for software engineer at Perseus.
+Challenge made for software engineer vacancy at Perseus.

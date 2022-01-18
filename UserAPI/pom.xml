@@ -59,6 +59,10 @@
 			<artifactId>resteasy-client</artifactId>
 			<version>3.13.2.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 	</dependencies>
 

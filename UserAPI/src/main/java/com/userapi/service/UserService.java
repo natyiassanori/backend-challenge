@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,5 +17,17 @@ public class UserService {
 
     public User findById(int id) {
         return userRepository.findById(id);
+    }
+
+    public List<User> findByLastName(String lastName) {
+        return userRepository.findByLastNameIgnoreCase(lastName);
+    }
+
+    public List<User> findByFirstName(String firstName) {
+        return userRepository.findByFirstNameIgnoreCase(firstName);
+    }
+
+    public void create(User user) {
+        userRepository.save(user);
     }
 }

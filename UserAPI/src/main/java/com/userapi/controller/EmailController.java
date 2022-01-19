@@ -3,6 +3,10 @@ package com.userapi.controller;
 import com.userapi.dto.ReplaceEmailDto;
 import com.userapi.dto.mapper.EmailMapper;
 import com.userapi.service.EmailService;
+import com.userapi.support.EmailDuplicatedException;
+import com.userapi.support.InvalidEmailException;
+import com.userapi.support.UserAlreadyHasTheEmailException;
+import com.userapi.support.EmailNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +23,13 @@ public class EmailController {
     private EmailMapper emailMapper;
 
     @PostMapping("/addEmail")
-    public ResponseEntity<String> addEmail(@RequestBody ReplaceEmailDto replaceEmailDto) {
+    public ResponseEntity<String> addEmail(@RequestBody ReplaceEmailDto replaceEmailDto) throws InvalidEmailException, EmailDuplicatedException, UserAlreadyHasTheEmailException {
         emailService.create(emailMapper.toModel(replaceEmailDto), replaceEmailDto.getUserId());
         return new ResponseEntity<>("Email succesfully created.", HttpStatus.OK);
     }
 
     @PutMapping("/updateEmail")
-    public ResponseEntity<String> updateEmail(@RequestBody ReplaceEmailDto replaceEmailDto) {
+    public ResponseEntity<String> updateEmail(@RequestBody ReplaceEmailDto replaceEmailDto) throws InvalidEmailException, EmailDuplicatedException, UserAlreadyHasTheEmailException, EmailNotFoundException {
         String newEmail = replaceEmailDto.getNewMail();
         String oldEmail = replaceEmailDto.getOldMail();
         int userId = replaceEmailDto.getUserId();

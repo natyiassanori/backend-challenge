@@ -3,6 +3,7 @@ package com.userapi.service;
 import com.userapi.model.PhoneNumber;
 import com.userapi.model.User;
 import com.userapi.repository.PhoneNumberRepository;
+import com.userapi.support.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class PhoneNumberService {
     @Autowired
     private PhoneNumberRepository phoneNumberRepository;
 
-    public void create(PhoneNumber phoneNumber, int userId) {
+    public void create(PhoneNumber phoneNumber, int userId) throws UserNotFoundException {
 
         User user = userService.findById(userId);
         phoneNumber.setUser(user);

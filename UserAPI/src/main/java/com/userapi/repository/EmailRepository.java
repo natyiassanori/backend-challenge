@@ -9,4 +9,6 @@ public interface EmailRepository extends JpaRepository<Email, Integer> {
 
     Email findByMailAndUserId(String mail, int userId);
 
+    Email findByMail(String mail);
+
 }

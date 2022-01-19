@@ -1,8 +1,9 @@
-package com.userapi.domain;
+package com.userapi.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(name = "user", schema = "userdb")
 public class User {
 
@@ -33,11 +35,11 @@ public class User {
     @Column(name="lastname", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy="user", targetEntity = Email.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user", targetEntity = Email.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
     private Set<Email> emails;
 
-    @OneToMany(mappedBy="user", targetEntity = PhoneNumber.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user", targetEntity = PhoneNumber.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
     private Set<PhoneNumber> phoneNumbers;
 

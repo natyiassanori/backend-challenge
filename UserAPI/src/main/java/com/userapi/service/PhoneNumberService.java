@@ -1,6 +1,7 @@
 package com.userapi.service;
 
-import com.userapi.domain.PhoneNumber;
+import com.userapi.model.PhoneNumber;
+import com.userapi.model.User;
 import com.userapi.repository.PhoneNumberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,24 @@ import javax.transaction.Transactional;
 public class PhoneNumberService {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PhoneNumberRepository phoneNumberRepository;
 
-    public PhoneNumber findById(int id) {
-        return phoneNumberRepository.findById(id);
+    public void create(PhoneNumber phoneNumber, int userId) {
+
+        User user = userService.findById(userId);
+        phoneNumber.setUser(user);
+
+        phoneNumberRepository.save(phoneNumber);
+    }
+
+    public void update(String newNumber, String oldNumber, int userId) {
+
+        PhoneNumber phoneNumber = phoneNumberRepository.findByNumberAndUserId(oldNumber, userId);
+        phoneNumber.setNumber(newNumber);
+
+        phoneNumberRepository.save(phoneNumber);
     }
 }

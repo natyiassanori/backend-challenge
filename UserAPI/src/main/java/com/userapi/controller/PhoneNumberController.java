@@ -1,16 +1,12 @@
 package com.userapi.controller;
 
-import com.userapi.domain.PhoneNumber;
+import com.userapi.dto.ReplacePhoneNumberDto;
+import com.userapi.dto.mapper.PhoneNumberMapper;
 import com.userapi.service.PhoneNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.NoSuchElementException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/phoneNumber")
@@ -19,18 +15,24 @@ public class PhoneNumberController {
     @Autowired
     private PhoneNumberService phoneNumberService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity getPhoneNumberById(@PathVariable int id) {
+    @Autowired
+    private PhoneNumberMapper phoneNumberMapper;
 
-        try {
+    @PostMapping("/addPhoneNumber")
+    public ResponseEntity<String> addPhoneNumber(@RequestBody ReplacePhoneNumberDto replacePhoneNumberDto) {
+        phoneNumberService.create(phoneNumberMapper.toModel(replacePhoneNumberDto), replacePhoneNumberDto.getUserId());
+        return new ResponseEntity<>("Phone number succesfully created.", HttpStatus.OK);
+    }
 
-            PhoneNumber phoneNumber = phoneNumberService.findById(id);
+    @PutMapping("/updatePhoneNumber")
+    public ResponseEntity<String> updatePhoneNumber(@RequestBody ReplacePhoneNumberDto replacePhoneNumberDto) {
+        String newPhoneNumber = replacePhoneNumberDto.getNewNumber();
+        String oldPhoneNumber = replacePhoneNumberDto.getOldNumber();
+        int userId = replacePhoneNumberDto.getUserId();
 
-            return new ResponseEntity<>(phoneNumber, HttpStatus.OK);
+        phoneNumberService.update(newPhoneNumber, oldPhoneNumber, userId);
 
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PhoneNumber());
-        }
+        return new ResponseEntity<>("Phone number succesfully updated.", HttpStatus.OK);
     }
 
 }

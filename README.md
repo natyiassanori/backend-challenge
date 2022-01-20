@@ -56,7 +56,7 @@ The schema model is represented by the following image:
 
 ![schema_model](https://user-images.githubusercontent.com/19779830/150350424-a0e84558-474f-4bc0-ada0-ebadbfff9a70.png)
 
-The *email* and *phoneNumber* have an many to one identifying relationship with *user*. When an user is deleted, their emails and phone numbers are also deleted.
+The *email* and *phoneNumber* have a many to one identifying relationship with *user*. When an user is deleted, their emails and phone numbers are also deleted.
 
 ### Application Architecture
 
@@ -247,3 +247,6 @@ To update phone number you'll have to make a ```PUT``` request to the phone numb
 ```
 
 I created this method to be possible to edit an existing phone number with another value. So, it's important to put the user id and the phone number that will be replaced with the new value.
+
+
+That's it! Please let me know if you have any questions regarding the instructions to build and run the service. I'm available to help if you have any issue related to migration, build and run the service on the e-mail: natsumyiass@gmail.com

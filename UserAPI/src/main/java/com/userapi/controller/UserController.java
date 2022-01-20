@@ -23,37 +23,37 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity getUserById(@PathVariable int id) throws UserNotFoundException {
         UserDto userDto = userMapper.toDto(userService.findById(id));
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @GetMapping("/getByLastName/{lastName}")
-    public ResponseEntity getUserByLastName(@PathVariable String lastName) throws UserNotFoundException {
+    @GetMapping(params = "lastName")
+    public ResponseEntity getUserByLastName(@RequestParam("lastName") String lastName) throws UserNotFoundException {
         Set<UserDto> userDto = userMapper.toDtoSet(userService.findByLastName(lastName));
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @GetMapping("/getByFirstName/{firstName}")
-    public ResponseEntity getUserByFirstName(@PathVariable String firstName) throws UserNotFoundException {
+    @GetMapping(params = "firstName")
+    public ResponseEntity getUserByFirstName(@RequestParam("firstName") String firstName) throws UserNotFoundException {
         Set<UserDto> userDto = userMapper.toDtoSet(userService.findByFirstName(firstName));
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto) throws EmailDuplicatedException, InvalidEmailException {
         userService.save(userMapper.toModel(userDto));
         return new ResponseEntity<>("User succesfully created.", HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id) throws UserNotFoundException {
         userService.delete(id);
         return new ResponseEntity<>("User succesfully deleted.", HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<String> updateUser(@RequestBody UserDto userDto) throws EmailDuplicatedException, InvalidEmailException {
         userService.save(userMapper.toModel(userDto));
         return new ResponseEntity<>("User succesfully updated.", HttpStatus.OK);

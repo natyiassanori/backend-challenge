@@ -19,7 +19,7 @@ public class EmailController {
     @Autowired
     private EmailMapper emailMapper;
 
-    @PostMapping("/addEmail")
+    @PostMapping()
     public ResponseEntity<String> addEmail(@RequestBody ReplaceEmailDto replaceEmailDto) throws InvalidEmailException,
                                                                                                 EmailDuplicatedException,
                                                                                                 UserAlreadyHasTheEmailException,
@@ -28,7 +28,7 @@ public class EmailController {
         return new ResponseEntity<>("Email succesfully created.", HttpStatus.OK);
     }
 
-    @PutMapping("/updateEmail")
+    @PutMapping()
     public ResponseEntity<String> updateEmail(@RequestBody ReplaceEmailDto replaceEmailDto) throws  InvalidEmailException,
                                                                                                     EmailDuplicatedException,
                                                                                                     UserAlreadyHasTheEmailException,

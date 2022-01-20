@@ -20,13 +20,13 @@ public class PhoneNumberController {
     @Autowired
     private PhoneNumberMapper phoneNumberMapper;
 
-    @PostMapping("/addPhoneNumber")
+    @PostMapping()
     public ResponseEntity<String> addPhoneNumber(@RequestBody ReplacePhoneNumberDto replacePhoneNumberDto) throws UserNotFoundException {
         phoneNumberService.create(phoneNumberMapper.toModel(replacePhoneNumberDto), replacePhoneNumberDto.getUserId());
         return new ResponseEntity<>("Phone number succesfully created.", HttpStatus.OK);
     }
 
-    @PutMapping("/updatePhoneNumber")
+    @PutMapping()
     public ResponseEntity<String> updatePhoneNumber(@RequestBody ReplacePhoneNumberDto replacePhoneNumberDto) throws PhoneNumberNotFoundException {
         String newPhoneNumber = replacePhoneNumberDto.getNewNumber();
         String oldPhoneNumber = replacePhoneNumberDto.getOldNumber();

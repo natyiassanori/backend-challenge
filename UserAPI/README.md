@@ -54,4 +54,27 @@ To implement this API I created a schema called *userdb* and inside of it, I cre
 
 The schema model is represented by the following image:
 
+![schema_model](https://user-images.githubusercontent.com/19779830/150350424-a0e84558-474f-4bc0-ada0-ebadbfff9a70.png)
 
+The *email* and *phoneNumber* have an many to one identifying relationship with *user*. When an user is deleted, their emails and phone numbers are also deleted.
+
+### Application Architecture
+
+I separated each layer of the application into packages:
+
+![Screen Shot 2022-01-20 at 10 51 14](https://user-images.githubusercontent.com/19779830/150351579-308a3056-9ae9-481a-a860-c281e0066295.png)
+
+
+- *Controller*: controllers are responsible to expose the endpoints to the API user be able to make requests. The controller layer communicates with the Service layer.
+- *Dto*: data transfer objects created to expose only the important data on the request and is used on the controller layer. On this layer I also created some mappers to convert a dto object to an entity and vice versa.
+- *Model*: data entities. Contains all properties present on entity's table on database.
+- *Service*: responsible for some business logic, some exceptions are thrown here. the controller layer communicates with the repository layer.
+- *Repository*: used to communicate with the appliaction database and get/save the data.
+- *Support*: some extra classes used on application. E.g: exceptions.
+
+### Tests
+
+I used ```JUnit``` to implement the application tests. In my tests I covered only the *Service* and *Dto* layers.
+
+
+### Requests

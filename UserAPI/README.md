@@ -1,7 +1,7 @@
 # UserAPI
 
 Hi folks! 
-This repository contains the backend challenge implamentation for software engineer vacancy at Perseus.
+This repository contains the backend challenge implementation for software engineer vacancy at Perseus.
 
 ## Technologies
 I used the following technologies to build the application:
@@ -24,24 +24,24 @@ I used MySQL as the database of my application. I created a migration file which
 
 ```UserAPI/src/main/resources/db.migration``` 
 
-This migration can be performed using Flyway, and will create the schema and the tables necessary for the application. But first, you'll need to change the Database connection URL, user and password. To do this, first go to the ```application.properties``` file located at ```UserAPI/src/main/resources``` and change the ```DB_CONNECTION_URL```, ```DB_ÙSER``` and ```DB_PASSWORD``` to your database connection, user and password. This is important to the application be able to get the data from the correct database. You'll need to change these values on another file too, the ```flywayConfig.conf```file. this file is located on the project's root directory. Please update with the same values you placed in ```application.properties``` file. This file is used to perform the migration script.
+This migration can be performed using Flyway, and will create the schema and the tables necessary for the application. But first, you'll need to change the Database connection URL, user and password. To do this, first go to the ```application.properties``` file located at ```UserAPI/src/main/resources``` and change the ```DB_CONNECTION_URL```, ```DB_ÙSER``` and ```DB_PASSWORD``` to your database connection, user and password. This is important to the application be able to get the data from the correct database. You'll need to change these values on another file too, the ```flywayConfig.conf``` file. This file is located on the project's root directory (UserApi). Please update with the same values you placed in ```application.properties``` file. This file is used to perform the migration script.
 
 
 ### Application port setting
-I used by default the port 8080 to run the application. If you want to use another port, please change it on the file ```application.properties``` located at phe path ```UserAPI/src/main/resources```. 
+I used by default the port 8080 to run the application. If you want to use another port, please change it on the file ```application.properties``` located at the path ```UserAPI/src/main/resources```. 
 The property you need to change is ```server.port```. 
 
 ### Installing project dependencies
 
 1. To install the project dependencies, you'll need to have Maven installed. If you haven't Maven, please access this [tutorial](https://maven.apache.org/install.html) to install. 
 
-2. On the command line, access UserApi directory (If you're on the reporitory folder - userApi, please access the second level folder: UserAPI).
+2. On the command line, access UserApi directory (If you're on the repository folder userApi, please access the second level folder: UserAPI).
+
+3. The next step is run the database migration that will create the schema and tables used on project. To do this, please execute the command: ```mvn compile flyway:migrate -Dflyway.configFiles=flywayConfig.conf```
 
 3. Execute the following command to install the project dependencies: ```mvn install```
 
-4. The next step is generate the project ```.jar``` file. To do this, please execute the command: ```mvn clean package```
-
-5. Now you can run the database migration that will create the schema and tables used on project. To do this, please execute the command: ```mvn compile flyway:migrate -Dflyway.configFiles=flywayConfig.conf```
+4. Now you can generate the project ```.jar``` file. To do this, please execute the command: ```mvn clean package```
 
 6. With the generated package, you'll be able to run the project. To do this, execute the command: ```java -jar ./target/UserApi-0.0.1-SNAPSHOT.jar```
 
@@ -68,35 +68,35 @@ I separated each layer of the application into packages:
 - *Controller*: controllers are responsible to expose the endpoints to the API user be able to make requests. The controller layer communicates with the Service layer.
 - *Dto*: data transfer objects created to expose only the important data on the request and is used on the controller layer. On this layer I also created some mappers to convert a dto object to an entity and vice versa.
 - *Model*: data entities. Contains all properties present on entity's table on database.
-- *Service*: responsible for some business logic, some exceptions are thrown here. the controller layer communicates with the repository layer.
+- *Service*: responsible for some business logic, some exceptions are thrown here. The service layer communicates with the repository layer.
 - *Repository*: used to communicate with the appliaction database and get/save the data.
 - *Support*: some extra classes used on application. E.g: exceptions.
 
-### Exeptions
+### Exceptions
 
 I created some exceptions on the application that I judged to be consistent with the behavior expected by the API user. When these exceptions are triggered, the user receive a proper feedback message:
 
-- **EmailDuplicatedException**: triggered when try to create or update a user with an email that already exists. Triggered when create or update email too. 
-  - *Why I created this exception*: I believe that there may be users with the same first name and last name, here in Brazil at least it is quite common for people with common last names to have the same full names. That's why I found it necessary to check e-mail duplicity to avoid duplicate registration. The user can have more than one registered email but two users cannot have the same registered emai
-- **EmailNotFoundException**: triggered when try to update a email that doesn't exists.
-  - *Why I created this exception*: I created an API method that allows edit an email withouth editing the entire user. On this method a old email is requested. So it's important that the email to be replaced be a existing email.
-- **InvalidEmailException**: triggered when tray to create an invalid email. I'm using a library to validate the emails.
+- **EmailDuplicatedException**: triggered when try to create or update an user with an email that already exists. Triggered when create or update email too. 
+  - *Why I created this exception*: I believe that there may be users with the same first name and last name, here in Brazil at least it is quite common for people with common last names to have the same full names. That's why I found it necessary to check e-mail duplicity to avoid duplicate registration. The user can have more than one registered email but two users cannot have the same registered email.
+- **EmailNotFoundException**: triggered when try to update an email that doesn't exists.
+  - *Why I created this exception*: I created an API method that allows edit an email withouth editing the entire user. On this method an old email is requested. So it's important that the email to be replaced be an existing email.
+- **InvalidEmailException**: triggered when try to create an invalid email. I'm using a library to validate the emails.
   - *Why I created this exception*: to avoid registration errors related to invalid email.
 - **PhoneNumberNotFoundException**: triggered when try to update a phone number that doesn't exists.
-  - *Why I created this exception*: I created an API method that allows edit an phone number withouth editing the entire user. On this method a old phone number is requested. So it's important that the phone number to be replaced be a existing phone number.
-- **UserAlreadyHasTheEmailException**: triggered when try to add a email to a user that already has the same email registered.
+  - *Why I created this exception*: I created an API method that allows edit a phone number withouth editing the entire user. On this method an old phone number is requested. So it's important that the phone number to be replaced be an existing phone number.
+- **UserAlreadyHasTheEmailException**: triggered when try to add a email to an user that already has the same email registered.
   - *Why I created this exception*: to avoid one user to have more than one email with same value.
 - **UserNotFoundException**: triggered when requested user was not found.
   - *Why I created this exception*: to give a feedback to API user that the requested user doesn't exists.
 
 ### Tests
 
-I used ```JUnit``` to implement the application tests. In my tests I covered only the *Service* and *Dto* layers.
+I used ```JUnit``` to implement the application tests. In my tests I covered the *Service* and *Dto* layers.
 
 
 ### API Requests
 
-I prepared a Postman Collection with all API request with example. To access the collection click [here](https://go.postman.co/workspace/My-Workspace~bcc1377f-e361-4ca7-8ff1-73cf1c845946/collection/16493941-e4b8fd43-e1ee-4979-978b-eecf5ff27960). But I'll explain a little more about each endpoint here:
+I prepared a Postman Collection with all API request with example. To access the collection please access the project root folder (one folder before the current folder) and acces ```Postman_Collection``` directory. This directory contains the collection in ```.json```format that can be imported using Postman. But I'll explain a little more about each endpoint here:
 
 #### User
 

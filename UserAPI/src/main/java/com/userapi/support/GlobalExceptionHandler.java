@@ -54,6 +54,13 @@ public class GlobalExceptionHandler {
         return handleExceptionInternal(emailNotFoundException, status);
     }
 
+    @ExceptionHandler({ PhoneNumberNotFoundException.class })
+    public final ResponseEntity<?> handlePhoneNumberNotFoundException(Exception ex) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        PhoneNumberNotFoundException phoneNumberNotFoundException = (PhoneNumberNotFoundException) ex;
+        return handleExceptionInternal(phoneNumberNotFoundException, status);
+    }
+
     protected ResponseEntity<?> handleExceptionInternal(Exception ex, HttpStatus status) {
         return new ResponseEntity<>(ex.getMessage(), status);
     }

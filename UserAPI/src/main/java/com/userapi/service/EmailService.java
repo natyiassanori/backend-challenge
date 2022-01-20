@@ -4,10 +4,7 @@ import com.userapi.model.Email;
 import com.userapi.model.User;
 import com.userapi.repository.EmailRepository;
 import com.userapi.repository.UserRepository;
-import com.userapi.support.EmailDuplicatedException;
-import com.userapi.support.InvalidEmailException;
-import com.userapi.support.UserAlreadyHasTheEmailException;
-import com.userapi.support.EmailNotFoundException;
+import com.userapi.support.*;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +22,15 @@ public class EmailService {
     @Autowired
     private UserRepository userRepository;
 
-    public void create(Email email, int userId) throws InvalidEmailException, EmailDuplicatedException, UserAlreadyHasTheEmailException {
+    public void create(Email email, int userId) throws InvalidEmailException, EmailDuplicatedException, UserAlreadyHasTheEmailException, UserNotFoundException {
 
-        searchForWrongFormattedEmail(email.getMail());
-        searchForDuplicateEmail(email.getMail(), userId);
-        validateIfUserAlreadyHaveTheEmail(email.getMail(), userId);
+        validateEmail(email.getMail(), userId);
 
         User user = userRepository.findById(userId);
+
+        if(user == null)
+            throw new UserNotFoundException(userId);
+
         email.setUser(user);
 
         emailRepository.save(email);
@@ -39,16 +38,22 @@ public class EmailService {
 
     public void update(String newMail, String oldMail, int userId) throws InvalidEmailException, EmailDuplicatedException, UserAlreadyHasTheEmailException, EmailNotFoundException {
 
-        searchForWrongFormattedEmail(newMail);
-        searchForDuplicateEmail(newMail, userId);
-        validateIfUserAlreadyHaveTheEmail(newMail, userId);
+        validateEmail(newMail, userId);
 
         Email email = emailRepository.findByMailAndUserId(oldMail, userId);
+
         if(email == null)
             throw new EmailNotFoundException(oldMail, userId);
+
         email.setMail(newMail);
 
         emailRepository.save(email);
+    }
+
+    private void validateEmail(String mail, int userId) throws InvalidEmailException, EmailDuplicatedException, UserAlreadyHasTheEmailException {
+        searchForWrongFormattedEmail(mail);
+        searchForDuplicateEmail(mail, userId);
+        validateIfUserAlreadyHaveTheEmail(mail, userId);
     }
 
     private Email findByMail(String mail){

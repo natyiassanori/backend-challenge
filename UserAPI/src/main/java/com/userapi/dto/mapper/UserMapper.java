@@ -29,7 +29,7 @@ public class UserMapper {
     }
 
     public Set<UserDto> toDtoSet(Set<User> userSet){
-        Set<UserDto> userDtoSet = new HashSet<UserDto>();
+        Set<UserDto> userDtoSet = new HashSet<>();
 
         for(User user : userSet){
             userDtoSet.add(toDto(user));

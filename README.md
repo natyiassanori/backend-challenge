@@ -28,7 +28,7 @@ This migration can be performed using Flyway, and will create the schema and the
 
 
 ### Application port setting
-I used by default the port ```8080 to run the application. If you want to use another port, please change it on the file ```application.properties``` located at the path ```userApi/UserAPI/src/main/resources```. 
+I used by default the port ```8080``` to run the application. If you want to use another port, please change it on the file ```application.properties``` located at the path ```userApi/UserAPI/src/main/resources```. 
 The property you need to change is ```server.port```. 
 
 ### Installing project dependencies

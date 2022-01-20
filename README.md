@@ -22,13 +22,13 @@ First of all, please clone this project to your machine!
 
 I used MySQL as the database of my application. I created a migration file which is located in the path: 
 
-```UserAPI/src/main/resources/db.migration``` 
+```userApi/UserAPI/src/main/resources/db.migration``` 
 
-This migration can be performed using Flyway, and will create the schema and the tables necessary for the application. But first, you'll need to change the Database connection URL, user and password. To do this, first go to the ```application.properties``` file located at ```UserAPI/src/main/resources``` and change the ```DB_CONNECTION_URL```, ```DB_ÙSER``` and ```DB_PASSWORD``` to your database connection, user and password. This is important to the application be able to get the data from the correct database. You'll need to change these values on another file too, the ```flywayConfig.conf``` file. This file is located on the project's root directory (UserApi). Please update with the same values you placed in ```application.properties``` file. This file is used to perform the migration script.
+This migration can be performed using Flyway, and will create the schema and the tables necessary for the application. But first, you'll need to change the Database connection URL, user and password. To do this, first go to the ```application.properties``` file located at ```userApi/UserAPI/src/main/resources``` and change the ```DB_CONNECTION_URL```, ```DB_ÙSER``` and ```DB_PASSWORD``` to your database connection, user and password. This is important to the application be able to get the data from the correct database. You'll need to change these values on another file too, the ```flywayConfig.conf``` file. This file is located on the project's root directory (UserApi). Please update with the same values you placed in ```application.properties``` file. This file is used to perform the migration script.
 
 
 ### Application port setting
-I used by default the port 8080 to run the application. If you want to use another port, please change it on the file ```application.properties``` located at the path ```UserAPI/src/main/resources```. 
+I used by default the port 8080 to run the application. If you want to use another port, please change it on the file ```application.properties``` located at the path ```userApi/UserAPI/src/main/resources```. 
 The property you need to change is ```server.port```. 
 
 ### Installing project dependencies
@@ -96,7 +96,7 @@ I used ```JUnit``` to implement the application tests. In my tests I covered the
 
 ### API Requests
 
-I prepared a Postman Collection with all API request with example. To access the collection please access the project root folder (one folder before the current folder) and acces ```Postman_Collection``` directory. This directory contains the collection in ```.json```format that can be imported using Postman. But I'll explain a little more about each endpoint here:
+I prepared a Postman Collection with all API request with example. To access the collection please access the ```Postman_Collection``` directory. This directory contains the collection in ```.json```format that can be imported using Postman. But I'll explain a little more about each endpoint here:
 
 #### User
 

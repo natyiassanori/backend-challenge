@@ -37,11 +37,11 @@ The property you need to change is ```server.port```.
 
 2. On the command line, access UserApi directory (If you're on the repository folder userApi, please access the second level folder: UserAPI).
 
+3. The next step is run the database migration that will create the schema and tables used on project. To do this, please execute the command: ```mvn compile flyway:migrate -Dflyway.configFiles=flywayConfig.conf```
+
 3. Execute the following command to install the project dependencies: ```mvn install```
 
-4. The next step is generate the project ```.jar``` file. To do this, please execute the command: ```mvn clean package```
-
-5. Now you can run the database migration that will create the schema and tables used on project. To do this, please execute the command: ```mvn compile flyway:migrate -Dflyway.configFiles=flywayConfig.conf```
+4. Now you can generate the project ```.jar``` file. To do this, please execute the command: ```mvn clean package```
 
 6. With the generated package, you'll be able to run the project. To do this, execute the command: ```java -jar ./target/UserApi-0.0.1-SNAPSHOT.jar```
 

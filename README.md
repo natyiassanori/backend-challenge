@@ -28,7 +28,7 @@ This migration can be performed using Flyway, and will create the schema and the
 
 
 ### Application port setting
-I used by default the port 8080 to run the application. If you want to use another port, please change it on the file ```application.properties``` located at the path ```userApi/UserAPI/src/main/resources```. 
+I used by default the port ```8080 to run the application. If you want to use another port, please change it on the file ```application.properties``` located at the path ```userApi/UserAPI/src/main/resources```. 
 The property you need to change is ```server.port```. 
 
 ### Installing project dependencies
@@ -114,7 +114,7 @@ To get an user by id, you'll have to make a ```GET``` request to the user URL(1)
 
 To get an user by first name, you'll have to make a ```GET``` request to the user URL(1) with the user's first name as a request parameter:
 
-```http://localhost:8089/user?firstName=natalia```
+```http://localhost:8080/user?firstName=natalia```
 
 The search for first name is case insensitive and will return a set with all users that have the wanted first name.
 
@@ -122,7 +122,7 @@ The search for first name is case insensitive and will return a set with all use
 
 To get an user by last name, you'll have to make a ```GET``` request to the user URL(1) with the user's last name as a request parameter:
 
-```http://localhost:8089/user?lastName=iassanori```
+```http://localhost:8080/user?lastName=iassanori```
 
 The search for last name is case insensitive and will return a set with all users that have the wanted last name.
 
